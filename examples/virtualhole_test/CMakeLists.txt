@@ -1,0 +1,7 @@
+INCLUDE_DIRECTORIES(../../src ${INC_DIRS})
+LINK_DIRECTORIES(../../lib ${LINK_DIRS})
+ADD_EXECUTABLE(virtualhole_test main.c)
+TARGET_LINK_LIBRARIES(virtualhole_test ${LIBNAME} ${LIBFTDINAME})
+IF(NOT WIN32)
+  INSTALL(TARGETS virtualhole_test RUNTIME DESTINATION "/usr/local/bin")
+ENDIF(NOT WIN32)
