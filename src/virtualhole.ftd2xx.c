@@ -16,19 +16,24 @@
 #include <string.h>
 #define MAX_DEVICES 128
 
-//Just wraps the FT_Read function in a QueueStatus call so we don't block on reads
-FT_STATUS virtualhole_set_speed(virtualhole_device dev, char motor_index, char speed)
+int virtualhole_init(virtualhole_device* dev)
 {
-	char command[2];
-	int bytes_written, bytes_read;
-	command[0] = 0x10 + motor_index;
-	command[1] = speed;
-	FT_Write(dev, command, 2, &bytes_written);
- 	FT_Read(dev, command, 1, &bytes_read);
 	return FT_OK;
 }
 
-int virtualhole_get_count()
+//Just wraps the FT_Read function in a QueueStatus call so we don't block on reads
+int virtualhole_set_speed(virtualhole_device* dev, unsigned char motor_index, unsigned char speed)
+{
+	unsigned char command[2];
+	int bytes_written, bytes_read;
+	command[0] = 0x10 + motor_index;
+	command[1] = speed;
+	FT_Write((dev->device), command, 2, &bytes_written);
+ 	FT_Read((dev->device), command, 1, &bytes_read);
+	return FT_OK;
+}
+
+int virtualhole_get_count(virtualhole_device* dev)
 {
     unsigned int falcon_count;
 	char* pcBufLD[MAX_DEVICES + 1];
@@ -41,7 +46,7 @@ int virtualhole_get_count()
 	}
 	//If we're not using windows, we can set PID/VID to filter on. I have no idea why this isn't provided in the windows drivers.
 #ifndef WIN32
-	FT_SetVIDPID(VIRTUAL_HOLE_VENDOR_ID, VIRTUAL_HOLE_PRODUCT_ID);
+	FT_SetVIDPID(VIRTUALHOLE_VENDOR_ID, VIRTUALHOLE_PRODUCT_ID);
 #endif
 	if((ftStatus = FT_ListDevices(pcBufLD, &falcon_count, FT_LIST_ALL | FT_OPEN_BY_SERIAL_NUMBER)) != FT_OK) return -1;
 	for(i = 0; ( (i <MAX_DEVICES) && (i < falcon_count) ); i++) {
@@ -60,7 +65,7 @@ int virtualhole_open(virtualhole_device *dev, unsigned int device_index)
 	int bytes_written, bytes_read;	
 	//If we're not using windows, we can set PID/VID to filter on. I have no idea why this isn't provided in the windows drivers.
 #ifndef WIN32
-	FT_SetVIDPID(VIRTUAL_HOLE_VENDOR_ID, VIRTUAL_HOLE_PRODUCT_ID);
+	FT_SetVIDPID(VIRTUALHOLE_VENDOR_ID, VIRTUALHOLE_PRODUCT_ID);
 #endif
 
 	for(i = 0; i < MAX_DEVICES; i++) {
@@ -73,8 +78,8 @@ int virtualhole_open(virtualhole_device *dev, unsigned int device_index)
 	}
 
 	//Open and reset device
-	if((ftStatus = FT_OpenEx(cBufLD[0], FT_OPEN_BY_SERIAL_NUMBER, dev)) != FT_OK) return ftStatus;
-	if((ftStatus = FT_ResetDevice(*dev)) != FT_OK) return ftStatus;
+	if((ftStatus = FT_OpenEx(cBufLD[0], FT_OPEN_BY_SERIAL_NUMBER, &(dev->device))) != FT_OK) return ftStatus;
+	if((ftStatus = FT_ResetDevice((dev->device))) != FT_OK) return ftStatus;
 
 	//Set to:
 	// 9600 baud
@@ -82,21 +87,21 @@ int virtualhole_open(virtualhole_device *dev, unsigned int device_index)
 	// No Flow Control
 	// RTS Low
 	// DTR High	
-	if((ftStatus = FT_SetBaudRate(*dev, 9600)) != FT_OK) return ftStatus;
-	if((ftStatus = FT_SetDataCharacteristics(*dev, FT_BITS_8, FT_STOP_BITS_1, FT_PARITY_NONE)) != FT_OK) return ftStatus;
-	if((ftStatus = FT_SetFlowControl(*dev, FT_FLOW_NONE, 0, 0)) != FT_OK) return ftStatus;
-	if((ftStatus = FT_ClrRts(*dev)) != FT_OK) return ftStatus;
-	if((ftStatus = FT_ClrDtr(*dev)) != FT_OK) return ftStatus;
-	if((ftStatus = FT_SetDtr(*dev)) != FT_OK) return ftStatus;
+	if((ftStatus = FT_SetBaudRate((dev->device), 9600)) != FT_OK) return ftStatus;
+	if((ftStatus = FT_SetDataCharacteristics((dev->device), FT_BITS_8, FT_STOP_BITS_1, FT_PARITY_NONE)) != FT_OK) return ftStatus;
+	if((ftStatus = FT_SetFlowControl((dev->device), FT_FLOW_NONE, 0, 0)) != FT_OK) return ftStatus;
+//	if((ftStatus = FT_ClrRts((dev->device))) != FT_OK) return ftStatus;
+//	if((ftStatus = FT_ClrDtr((dev->device))) != FT_OK) return ftStatus;
+//	if((ftStatus = FT_SetDtr((dev->device))) != FT_OK) return ftStatus;
 
  	FT_Read(dev, test, 10, &bytes_read);
 
 	return FT_OK;
 }
 
-int virtualhole_close(virtualhole_device dev)
+int virtualhole_close(virtualhole_device* dev)
 {
 	if(!dev) return -1;
-	FT_Close(dev);
+	FT_Close((dev->device));
 	return 0;
 }

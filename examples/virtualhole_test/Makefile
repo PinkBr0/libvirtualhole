@@ -39,10 +39,10 @@ RM = "/Applications/CMake 2.6-0.app/Contents/bin/cmake" -E remove -f
 CMAKE_EDIT_COMMAND = "/Applications/CMake 2.6-0.app/Contents/bin/ccmake"
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole
+CMAKE_SOURCE_DIR = /Users/qdot/git-projects/libvirtualhole
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole
+CMAKE_BINARY_DIR = /Users/qdot/git-projects/libvirtualhole
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -50,7 +50,7 @@ CMAKE_BINARY_DIR = /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvi
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole/examples/virtualhole_test && "/Applications/CMake 2.6-0.app/Contents/bin/ccmake" -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	cd /Users/qdot/git-projects/libvirtualhole/examples/virtualhole_test && "/Applications/CMake 2.6-0.app/Contents/bin/ccmake" -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -60,19 +60,19 @@ edit_cache/fast: edit_cache
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole/examples/virtualhole_test && "/Applications/CMake 2.6-0.app/Contents/bin/cmake" -P cmake_install.cmake
+	cd /Users/qdot/git-projects/libvirtualhole/examples/virtualhole_test && "/Applications/CMake 2.6-0.app/Contents/bin/cmake" -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole/examples/virtualhole_test && "/Applications/CMake 2.6-0.app/Contents/bin/cmake" -P cmake_install.cmake
+	cd /Users/qdot/git-projects/libvirtualhole/examples/virtualhole_test && "/Applications/CMake 2.6-0.app/Contents/bin/cmake" -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole/examples/virtualhole_test && "/Applications/CMake 2.6-0.app/Contents/bin/cmake" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	cd /Users/qdot/git-projects/libvirtualhole/examples/virtualhole_test && "/Applications/CMake 2.6-0.app/Contents/bin/cmake" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local
 
 # Special rule for the target install/local
@@ -82,7 +82,7 @@ install/local/fast: install/local
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole/examples/virtualhole_test && "/Applications/CMake 2.6-0.app/Contents/bin/cmake" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	cd /Users/qdot/git-projects/libvirtualhole/examples/virtualhole_test && "/Applications/CMake 2.6-0.app/Contents/bin/cmake" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
@@ -101,7 +101,7 @@ list_install_components/fast: list_install_components
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole/examples/virtualhole_test && "/Applications/CMake 2.6-0.app/Contents/bin/cmake" -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	cd /Users/qdot/git-projects/libvirtualhole/examples/virtualhole_test && "/Applications/CMake 2.6-0.app/Contents/bin/cmake" -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -110,14 +110,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(CMAKE_COMMAND) -E cmake_progress_start /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole/CMakeFiles /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole/examples/virtualhole_test/CMakeFiles/progress.make
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(MAKE) -f CMakeFiles/Makefile2 examples/virtualhole_test/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole/CMakeFiles 0
+	cd /Users/qdot/git-projects/libvirtualhole && $(CMAKE_COMMAND) -E cmake_progress_start /Users/qdot/git-projects/libvirtualhole/CMakeFiles /Users/qdot/git-projects/libvirtualhole/examples/virtualhole_test/CMakeFiles/progress.make
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f CMakeFiles/Makefile2 examples/virtualhole_test/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/qdot/git-projects/libvirtualhole/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(MAKE) -f CMakeFiles/Makefile2 examples/virtualhole_test/clean
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f CMakeFiles/Makefile2 examples/virtualhole_test/clean
 .PHONY : clean
 
 # The main clean target
@@ -126,47 +126,73 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(MAKE) -f CMakeFiles/Makefile2 examples/virtualhole_test/preinstall
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f CMakeFiles/Makefile2 examples/virtualhole_test/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(MAKE) -f CMakeFiles/Makefile2 examples/virtualhole_test/preinstall
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f CMakeFiles/Makefile2 examples/virtualhole_test/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/qdot/git-projects/libvirtualhole && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
-examples/virtualhole_test/CMakeFiles/virtualhole_test.dir/rule:
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(MAKE) -f CMakeFiles/Makefile2 examples/virtualhole_test/CMakeFiles/virtualhole_test.dir/rule
-.PHONY : examples/virtualhole_test/CMakeFiles/virtualhole_test.dir/rule
+examples/virtualhole_test/CMakeFiles/virtualhole_test_ftd2xx.dir/rule:
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f CMakeFiles/Makefile2 examples/virtualhole_test/CMakeFiles/virtualhole_test_ftd2xx.dir/rule
+.PHONY : examples/virtualhole_test/CMakeFiles/virtualhole_test_ftd2xx.dir/rule
 
 # Convenience name for target.
-virtualhole_test: examples/virtualhole_test/CMakeFiles/virtualhole_test.dir/rule
-.PHONY : virtualhole_test
+virtualhole_test_ftd2xx: examples/virtualhole_test/CMakeFiles/virtualhole_test_ftd2xx.dir/rule
+.PHONY : virtualhole_test_ftd2xx
 
 # fast build rule for target.
-virtualhole_test/fast:
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(MAKE) -f examples/virtualhole_test/CMakeFiles/virtualhole_test.dir/build.make examples/virtualhole_test/CMakeFiles/virtualhole_test.dir/build
-.PHONY : virtualhole_test/fast
+virtualhole_test_ftd2xx/fast:
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f examples/virtualhole_test/CMakeFiles/virtualhole_test_ftd2xx.dir/build.make examples/virtualhole_test/CMakeFiles/virtualhole_test_ftd2xx.dir/build
+.PHONY : virtualhole_test_ftd2xx/fast
 
-# target to build an object file
-main.o:
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(MAKE) -f examples/virtualhole_test/CMakeFiles/virtualhole_test.dir/build.make examples/virtualhole_test/CMakeFiles/virtualhole_test.dir/main.o
+# Convenience name for target.
+examples/virtualhole_test/CMakeFiles/virtualhole_test_libftdi.dir/rule:
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f CMakeFiles/Makefile2 examples/virtualhole_test/CMakeFiles/virtualhole_test_libftdi.dir/rule
+.PHONY : examples/virtualhole_test/CMakeFiles/virtualhole_test_libftdi.dir/rule
+
+# Convenience name for target.
+virtualhole_test_libftdi: examples/virtualhole_test/CMakeFiles/virtualhole_test_libftdi.dir/rule
+.PHONY : virtualhole_test_libftdi
+
+# fast build rule for target.
+virtualhole_test_libftdi/fast:
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f examples/virtualhole_test/CMakeFiles/virtualhole_test_libftdi.dir/build.make examples/virtualhole_test/CMakeFiles/virtualhole_test_libftdi.dir/build
+.PHONY : virtualhole_test_libftdi/fast
+
+main.o: main.c.o
 .PHONY : main.o
 
-# target to preprocess a source file
-main.i:
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(MAKE) -f examples/virtualhole_test/CMakeFiles/virtualhole_test.dir/build.make examples/virtualhole_test/CMakeFiles/virtualhole_test.dir/main.i
+# target to build an object file
+main.c.o:
+	cd /Users/qdot/git-projects/libvirtualhole && cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f examples/virtualhole_test/CMakeFiles/virtualhole_test_ftd2xx.dir/build.make examples/virtualhole_test/CMakeFiles/virtualhole_test_ftd2xx.dir/main.c.o
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f examples/virtualhole_test/CMakeFiles/virtualhole_test_libftdi.dir/build.make examples/virtualhole_test/CMakeFiles/virtualhole_test_libftdi.dir/main.c.o
+.PHONY : main.c.o
+
+main.i: main.c.i
 .PHONY : main.i
 
-# target to generate assembly for a file
-main.s:
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(MAKE) -f examples/virtualhole_test/CMakeFiles/virtualhole_test.dir/build.make examples/virtualhole_test/CMakeFiles/virtualhole_test.dir/main.s
+# target to preprocess a source file
+main.c.i:
+	cd /Users/qdot/git-projects/libvirtualhole && cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f examples/virtualhole_test/CMakeFiles/virtualhole_test_ftd2xx.dir/build.make examples/virtualhole_test/CMakeFiles/virtualhole_test_ftd2xx.dir/main.c.i
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f examples/virtualhole_test/CMakeFiles/virtualhole_test_libftdi.dir/build.make examples/virtualhole_test/CMakeFiles/virtualhole_test_libftdi.dir/main.c.i
+.PHONY : main.c.i
+
+main.s: main.c.s
 .PHONY : main.s
+
+# target to generate assembly for a file
+main.c.s:
+	cd /Users/qdot/git-projects/libvirtualhole && cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f examples/virtualhole_test/CMakeFiles/virtualhole_test_ftd2xx.dir/build.make examples/virtualhole_test/CMakeFiles/virtualhole_test_ftd2xx.dir/main.c.s
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f examples/virtualhole_test/CMakeFiles/virtualhole_test_libftdi.dir/build.make examples/virtualhole_test/CMakeFiles/virtualhole_test_libftdi.dir/main.c.s
+.PHONY : main.c.s
 
 # Help Target
 help:
@@ -180,7 +206,8 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... virtualhole_test"
+	@echo "... virtualhole_test_ftd2xx"
+	@echo "... virtualhole_test_libftdi"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
@@ -195,6 +222,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/qdot/git-projects/libvirtualhole && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

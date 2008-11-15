@@ -39,10 +39,10 @@ RM = "/Applications/CMake 2.6-0.app/Contents/bin/cmake" -E remove -f
 CMAKE_EDIT_COMMAND = "/Applications/CMake 2.6-0.app/Contents/bin/ccmake"
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole
+CMAKE_SOURCE_DIR = /Users/qdot/git-projects/libvirtualhole
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole
+CMAKE_BINARY_DIR = /Users/qdot/git-projects/libvirtualhole
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -50,7 +50,7 @@ CMAKE_BINARY_DIR = /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvi
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole/src && "/Applications/CMake 2.6-0.app/Contents/bin/ccmake" -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	cd /Users/qdot/git-projects/libvirtualhole/src && "/Applications/CMake 2.6-0.app/Contents/bin/ccmake" -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -60,19 +60,19 @@ edit_cache/fast: edit_cache
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole/src && "/Applications/CMake 2.6-0.app/Contents/bin/cmake" -P cmake_install.cmake
+	cd /Users/qdot/git-projects/libvirtualhole/src && "/Applications/CMake 2.6-0.app/Contents/bin/cmake" -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole/src && "/Applications/CMake 2.6-0.app/Contents/bin/cmake" -P cmake_install.cmake
+	cd /Users/qdot/git-projects/libvirtualhole/src && "/Applications/CMake 2.6-0.app/Contents/bin/cmake" -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole/src && "/Applications/CMake 2.6-0.app/Contents/bin/cmake" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	cd /Users/qdot/git-projects/libvirtualhole/src && "/Applications/CMake 2.6-0.app/Contents/bin/cmake" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local
 
 # Special rule for the target install/local
@@ -82,7 +82,7 @@ install/local/fast: install/local
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole/src && "/Applications/CMake 2.6-0.app/Contents/bin/cmake" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	cd /Users/qdot/git-projects/libvirtualhole/src && "/Applications/CMake 2.6-0.app/Contents/bin/cmake" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
@@ -101,7 +101,7 @@ list_install_components/fast: list_install_components
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole/src && "/Applications/CMake 2.6-0.app/Contents/bin/cmake" -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	cd /Users/qdot/git-projects/libvirtualhole/src && "/Applications/CMake 2.6-0.app/Contents/bin/cmake" -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -110,14 +110,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(CMAKE_COMMAND) -E cmake_progress_start /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole/CMakeFiles /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole/src/CMakeFiles/progress.make
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(MAKE) -f CMakeFiles/Makefile2 src/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole/CMakeFiles 0
+	cd /Users/qdot/git-projects/libvirtualhole && $(CMAKE_COMMAND) -E cmake_progress_start /Users/qdot/git-projects/libvirtualhole/CMakeFiles /Users/qdot/git-projects/libvirtualhole/src/CMakeFiles/progress.make
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f CMakeFiles/Makefile2 src/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/qdot/git-projects/libvirtualhole/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(MAKE) -f CMakeFiles/Makefile2 src/clean
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f CMakeFiles/Makefile2 src/clean
 .PHONY : clean
 
 # The main clean target
@@ -126,64 +126,128 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/qdot/git-projects/libvirtualhole && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
-src/CMakeFiles/virtualhole.dir/rule:
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/virtualhole.dir/rule
-.PHONY : src/CMakeFiles/virtualhole.dir/rule
+src/CMakeFiles/virtualhole_ftd2xx_SHARED.dir/rule:
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/virtualhole_ftd2xx_SHARED.dir/rule
+.PHONY : src/CMakeFiles/virtualhole_ftd2xx_SHARED.dir/rule
 
 # Convenience name for target.
-virtualhole: src/CMakeFiles/virtualhole.dir/rule
-.PHONY : virtualhole
+virtualhole_ftd2xx_SHARED: src/CMakeFiles/virtualhole_ftd2xx_SHARED.dir/rule
+.PHONY : virtualhole_ftd2xx_SHARED
 
 # fast build rule for target.
-virtualhole/fast:
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(MAKE) -f src/CMakeFiles/virtualhole.dir/build.make src/CMakeFiles/virtualhole.dir/build
-.PHONY : virtualhole/fast
+virtualhole_ftd2xx_SHARED/fast:
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f src/CMakeFiles/virtualhole_ftd2xx_SHARED.dir/build.make src/CMakeFiles/virtualhole_ftd2xx_SHARED.dir/build
+.PHONY : virtualhole_ftd2xx_SHARED/fast
 
 # Convenience name for target.
-src/CMakeFiles/virtualhole_dynamic.dir/rule:
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/virtualhole_dynamic.dir/rule
-.PHONY : src/CMakeFiles/virtualhole_dynamic.dir/rule
+src/CMakeFiles/virtualhole_ftd2xx_STATIC.dir/rule:
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/virtualhole_ftd2xx_STATIC.dir/rule
+.PHONY : src/CMakeFiles/virtualhole_ftd2xx_STATIC.dir/rule
 
 # Convenience name for target.
-virtualhole_dynamic: src/CMakeFiles/virtualhole_dynamic.dir/rule
-.PHONY : virtualhole_dynamic
+virtualhole_ftd2xx_STATIC: src/CMakeFiles/virtualhole_ftd2xx_STATIC.dir/rule
+.PHONY : virtualhole_ftd2xx_STATIC
 
 # fast build rule for target.
-virtualhole_dynamic/fast:
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(MAKE) -f src/CMakeFiles/virtualhole_dynamic.dir/build.make src/CMakeFiles/virtualhole_dynamic.dir/build
-.PHONY : virtualhole_dynamic/fast
+virtualhole_ftd2xx_STATIC/fast:
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f src/CMakeFiles/virtualhole_ftd2xx_STATIC.dir/build.make src/CMakeFiles/virtualhole_ftd2xx_STATIC.dir/build
+.PHONY : virtualhole_ftd2xx_STATIC/fast
+
+# Convenience name for target.
+src/CMakeFiles/virtualhole_libftdi_SHARED.dir/rule:
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/virtualhole_libftdi_SHARED.dir/rule
+.PHONY : src/CMakeFiles/virtualhole_libftdi_SHARED.dir/rule
+
+# Convenience name for target.
+virtualhole_libftdi_SHARED: src/CMakeFiles/virtualhole_libftdi_SHARED.dir/rule
+.PHONY : virtualhole_libftdi_SHARED
+
+# fast build rule for target.
+virtualhole_libftdi_SHARED/fast:
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f src/CMakeFiles/virtualhole_libftdi_SHARED.dir/build.make src/CMakeFiles/virtualhole_libftdi_SHARED.dir/build
+.PHONY : virtualhole_libftdi_SHARED/fast
+
+# Convenience name for target.
+src/CMakeFiles/virtualhole_libftdi_STATIC.dir/rule:
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/virtualhole_libftdi_STATIC.dir/rule
+.PHONY : src/CMakeFiles/virtualhole_libftdi_STATIC.dir/rule
+
+# Convenience name for target.
+virtualhole_libftdi_STATIC: src/CMakeFiles/virtualhole_libftdi_STATIC.dir/rule
+.PHONY : virtualhole_libftdi_STATIC
+
+# fast build rule for target.
+virtualhole_libftdi_STATIC/fast:
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f src/CMakeFiles/virtualhole_libftdi_STATIC.dir/build.make src/CMakeFiles/virtualhole_libftdi_STATIC.dir/build
+.PHONY : virtualhole_libftdi_STATIC/fast
+
+virtualhole.ftd2xx.o: virtualhole.ftd2xx.c.o
+.PHONY : virtualhole.ftd2xx.o
 
 # target to build an object file
-virtualhole.o:
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(MAKE) -f src/CMakeFiles/virtualhole.dir/build.make src/CMakeFiles/virtualhole.dir/virtualhole.o
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(MAKE) -f src/CMakeFiles/virtualhole_dynamic.dir/build.make src/CMakeFiles/virtualhole_dynamic.dir/virtualhole.o
-.PHONY : virtualhole.o
+virtualhole.ftd2xx.c.o:
+	cd /Users/qdot/git-projects/libvirtualhole && cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f src/CMakeFiles/virtualhole_ftd2xx_SHARED.dir/build.make src/CMakeFiles/virtualhole_ftd2xx_SHARED.dir/virtualhole.ftd2xx.c.o
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f src/CMakeFiles/virtualhole_ftd2xx_STATIC.dir/build.make src/CMakeFiles/virtualhole_ftd2xx_STATIC.dir/virtualhole.ftd2xx.c.o
+.PHONY : virtualhole.ftd2xx.c.o
+
+virtualhole.ftd2xx.i: virtualhole.ftd2xx.c.i
+.PHONY : virtualhole.ftd2xx.i
 
 # target to preprocess a source file
-virtualhole.i:
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(MAKE) -f src/CMakeFiles/virtualhole.dir/build.make src/CMakeFiles/virtualhole.dir/virtualhole.i
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(MAKE) -f src/CMakeFiles/virtualhole_dynamic.dir/build.make src/CMakeFiles/virtualhole_dynamic.dir/virtualhole.i
-.PHONY : virtualhole.i
+virtualhole.ftd2xx.c.i:
+	cd /Users/qdot/git-projects/libvirtualhole && cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f src/CMakeFiles/virtualhole_ftd2xx_SHARED.dir/build.make src/CMakeFiles/virtualhole_ftd2xx_SHARED.dir/virtualhole.ftd2xx.c.i
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f src/CMakeFiles/virtualhole_ftd2xx_STATIC.dir/build.make src/CMakeFiles/virtualhole_ftd2xx_STATIC.dir/virtualhole.ftd2xx.c.i
+.PHONY : virtualhole.ftd2xx.c.i
+
+virtualhole.ftd2xx.s: virtualhole.ftd2xx.c.s
+.PHONY : virtualhole.ftd2xx.s
 
 # target to generate assembly for a file
-virtualhole.s:
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(MAKE) -f src/CMakeFiles/virtualhole.dir/build.make src/CMakeFiles/virtualhole.dir/virtualhole.s
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(MAKE) -f src/CMakeFiles/virtualhole_dynamic.dir/build.make src/CMakeFiles/virtualhole_dynamic.dir/virtualhole.s
-.PHONY : virtualhole.s
+virtualhole.ftd2xx.c.s:
+	cd /Users/qdot/git-projects/libvirtualhole && cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f src/CMakeFiles/virtualhole_ftd2xx_SHARED.dir/build.make src/CMakeFiles/virtualhole_ftd2xx_SHARED.dir/virtualhole.ftd2xx.c.s
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f src/CMakeFiles/virtualhole_ftd2xx_STATIC.dir/build.make src/CMakeFiles/virtualhole_ftd2xx_STATIC.dir/virtualhole.ftd2xx.c.s
+.PHONY : virtualhole.ftd2xx.c.s
+
+virtualhole.libftdi.o: virtualhole.libftdi.c.o
+.PHONY : virtualhole.libftdi.o
+
+# target to build an object file
+virtualhole.libftdi.c.o:
+	cd /Users/qdot/git-projects/libvirtualhole && cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f src/CMakeFiles/virtualhole_libftdi_SHARED.dir/build.make src/CMakeFiles/virtualhole_libftdi_SHARED.dir/virtualhole.libftdi.c.o
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f src/CMakeFiles/virtualhole_libftdi_STATIC.dir/build.make src/CMakeFiles/virtualhole_libftdi_STATIC.dir/virtualhole.libftdi.c.o
+.PHONY : virtualhole.libftdi.c.o
+
+virtualhole.libftdi.i: virtualhole.libftdi.c.i
+.PHONY : virtualhole.libftdi.i
+
+# target to preprocess a source file
+virtualhole.libftdi.c.i:
+	cd /Users/qdot/git-projects/libvirtualhole && cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f src/CMakeFiles/virtualhole_libftdi_SHARED.dir/build.make src/CMakeFiles/virtualhole_libftdi_SHARED.dir/virtualhole.libftdi.c.i
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f src/CMakeFiles/virtualhole_libftdi_STATIC.dir/build.make src/CMakeFiles/virtualhole_libftdi_STATIC.dir/virtualhole.libftdi.c.i
+.PHONY : virtualhole.libftdi.c.i
+
+virtualhole.libftdi.s: virtualhole.libftdi.c.s
+.PHONY : virtualhole.libftdi.s
+
+# target to generate assembly for a file
+virtualhole.libftdi.c.s:
+	cd /Users/qdot/git-projects/libvirtualhole && cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f src/CMakeFiles/virtualhole_libftdi_SHARED.dir/build.make src/CMakeFiles/virtualhole_libftdi_SHARED.dir/virtualhole.libftdi.c.s
+	cd /Users/qdot/git-projects/libvirtualhole && $(MAKE) -f src/CMakeFiles/virtualhole_libftdi_STATIC.dir/build.make src/CMakeFiles/virtualhole_libftdi_STATIC.dir/virtualhole.libftdi.c.s
+.PHONY : virtualhole.libftdi.c.s
 
 # Help Target
 help:
@@ -197,11 +261,16 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... virtualhole"
-	@echo "... virtualhole_dynamic"
-	@echo "... virtualhole.o"
-	@echo "... virtualhole.i"
-	@echo "... virtualhole.s"
+	@echo "... virtualhole_ftd2xx_SHARED"
+	@echo "... virtualhole_ftd2xx_STATIC"
+	@echo "... virtualhole_libftdi_SHARED"
+	@echo "... virtualhole_libftdi_STATIC"
+	@echo "... virtualhole.ftd2xx.o"
+	@echo "... virtualhole.ftd2xx.i"
+	@echo "... virtualhole.ftd2xx.s"
+	@echo "... virtualhole.libftdi.o"
+	@echo "... virtualhole.libftdi.i"
+	@echo "... virtualhole.libftdi.s"
 .PHONY : help
 
 
@@ -213,6 +282,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/qdot/projects/software/libs/libvirtualhole/trunk/libvirtualhole && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/qdot/git-projects/libvirtualhole && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
