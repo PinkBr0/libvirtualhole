@@ -12,6 +12,7 @@
    } while(0);
 
 static int s_is_initialized = 0;
+unsigned char command[100];
 
 int virtualhole_init(virtualhole_device* dev)
 {
@@ -22,17 +23,28 @@ int virtualhole_init(virtualhole_device* dev)
 	return dev->status_code;
 }
 
-//Just wraps the FT_Read function in a QueueStatus call so we don't block on reads
-int virtualhole_set_speed(virtualhole_device* dev, unsigned char motor_index, unsigned char speed)
+int virtualhole_set_speed(virtualhole_device* dev, virtualhole_info info)
 {
-	unsigned char command[100];
 	int bytes_written, bytes_read;
-	command[0] = 0x10 + motor_index;
-	command[1] = speed;
+	command[0] = 0x10 + info.motor;
+	command[1] = info.speed;
 
 	ftdi_write_data(&(dev->device), command, 2);
 	ftdi_read_data(&(dev->device), command, 1);
 	return 0;
+}
+
+int virtualhole_set_speeds(virtualhole_device* dev, virtualhole_info* info, unsigned int command_count)
+{
+	int bytes_written, bytes_read;
+	int i;
+	for(i = 0; i < command_count; ++i)
+	{
+		command[i * 2] = 0x10 + info[i].motor;
+		command[(i * 2) + 1] = info[i].speed;
+	}
+	ftdi_write_data(&(dev->device), command, 2*command_count);
+	ftdi_read_data(&(dev->device), command, 1);
 }
 
 int virtualhole_get_count(virtualhole_device* dev)

@@ -23,22 +23,27 @@ typedef FT_HANDLE virtualhole_handle; /*!< ftd2xx typedef for virtual hole acces
 extern "C" {
 #endif
 
-typedef struct virtualhole_device {
-	virtualhole_handle device; /*!< FTDI object to access falcon */
-	char is_initialized;  /*!< Boolean set to true when device is opened successfully, false when closed/uninitialized */
-	char is_open; /*!< Boolean set to true when device is opened successfully, false when closed/uninitialized */
-	int status_code; /*!< Status code returned from either libnifalcon or ftdi access library (can also be bytes read/written, etc...) */
-	char* status_str;	 /*!< Status string for libnifalcon specific errors and messages */   
-} virtualhole_device ;
+	typedef struct virtualhole_info {
+		unsigned char motor;
+		unsigned char speed;
+	} virtualhole_info;
+	
+	typedef struct virtualhole_device {
+		virtualhole_handle device; /*!< FTDI object to access falcon */
+		char is_initialized;  /*!< Boolean set to true when device is opened successfully, false when closed/uninitialized */
+		char is_open; /*!< Boolean set to true when device is opened successfully, false when closed/uninitialized */
+		int status_code; /*!< Status code returned from either libnifalcon or ftdi access library (can also be bytes read/written, etc...) */
+		char* status_str;	 /*!< Status string for libnifalcon specific errors and messages */   
+	} virtualhole_device ;
 
-int virtualhole_init(virtualhole_device* dev);
+	int virtualhole_init(virtualhole_device* dev);
 
 /** 
  * Counts the number of devices connected to the system
  * 
  * @return Number of falcons connected, -1 on error
  */
-int virtualhole_get_count(virtualhole_device* dev);
+	int virtualhole_get_count(virtualhole_device* dev);
 
 /** 
  * Opens the device
@@ -48,7 +53,7 @@ int virtualhole_get_count(virtualhole_device* dev);
  * 
  * @return FT_OK on success, FTDI driver error on failure
  */
-int virtualhole_open(virtualhole_device *dev, unsigned int device_index);
+	int virtualhole_open(virtualhole_device *dev, unsigned int device_index);
 
 /** 
  * Closes device passed to it
@@ -57,7 +62,7 @@ int virtualhole_open(virtualhole_device *dev, unsigned int device_index);
  *
  * @return FT_OK on success, FTDI driver error on failure
  */
-int virtualhole_close(virtualhole_device* dev);
+	int virtualhole_close(virtualhole_device* dev);
 
 /** 
  * Sets the speed of a certain motor
@@ -68,8 +73,10 @@ int virtualhole_close(virtualhole_device* dev);
  *
  * @return FT_OK on success, FTDI driver error on failure
  */
-int virtualhole_set_speed(virtualhole_device* dev, unsigned char motor_index, unsigned char speed);
+	int virtualhole_set_speed(virtualhole_device* dev, virtualhole_info i);
 
+	int virtualhole_set_speeds(virtualhole_device* dev, virtualhole_info* i, unsigned int command_count);
+	
 #ifdef __cplusplus
 }
 #endif

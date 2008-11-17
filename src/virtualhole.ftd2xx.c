@@ -16,21 +16,35 @@
 #include <string.h>
 #define MAX_DEVICES 128
 
+unsigned char command[100];
+
 int virtualhole_init(virtualhole_device* dev)
 {
 	return FT_OK;
 }
 
-//Just wraps the FT_Read function in a QueueStatus call so we don't block on reads
-int virtualhole_set_speed(virtualhole_device* dev, unsigned char motor_index, unsigned char speed)
+int virtualhole_set_speed(virtualhole_device* dev, virtualhole_info info)
 {
-	unsigned char command[2];
 	int bytes_written, bytes_read;
-	command[0] = 0x10 + motor_index;
-	command[1] = speed;
+	command[0] = 0x10 + info.motor;
+	command[1] = info.speed;
 	FT_Write((dev->device), command, 2, &bytes_written);
  	FT_Read((dev->device), command, 1, &bytes_read);
-	return FT_OK;
+	return 0;
+}
+
+int virtualhole_set_speeds(virtualhole_device* dev, virtualhole_info* info, unsigned int command_count)
+{
+	unsigned char command[100];
+	int bytes_written, bytes_read;
+	int i;
+	for(i = 0; i < command_count; ++i)
+	{
+		command[i * 2] = 0x10 + info[i].motor;
+		command[(i * 2) + 1] = info[i].speed;
+	}
+	FT_Write((dev->device), command, 2*command_count, &bytes_written);
+ 	FT_Read((dev->device), command, 1, &bytes_read);
 }
 
 int virtualhole_get_count(virtualhole_device* dev)

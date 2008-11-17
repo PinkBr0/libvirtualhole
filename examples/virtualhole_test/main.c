@@ -3,6 +3,7 @@
 int main(int argc, char** argv)
 {
 	virtualhole_device dev;
+	virtualhole_info info;
 	int count;
 	int i, j;
 	virtualhole_init(&dev);
@@ -21,7 +22,9 @@ int main(int argc, char** argv)
 	printf("Device opened\n");
 	for(i = 0; i < 10; ++i)
 	{
-		if(virtualhole_set_speed(&dev, i, 63) != 0)
+		info.motor = i;
+		info.speed = 63;
+		if(virtualhole_set_speed(&dev, info) != 0)
 		{
 			printf("Cannot write to device!\n");
 			break;
@@ -30,7 +33,9 @@ int main(int argc, char** argv)
 	sleep(3);
 	for(i = 0; i < 10; ++i)
 	{
-		if(virtualhole_set_speed(&dev, i, 0) != 0)
+		info.motor = i;
+		info.speed = 0;
+		if(virtualhole_set_speed(&dev, info) != 0)
 		{
 			printf("Cannot write to device!\n");
 			break;
