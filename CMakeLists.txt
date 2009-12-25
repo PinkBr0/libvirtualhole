@@ -1,7 +1,28 @@
-#cmake directives
+######################################################################################
+# CMake directives
+######################################################################################
 
+#Require 2.6 or higher.
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6.0 FATAL_ERROR)
-SET(CMAKE_MODULE_PATH "./cmake_modules/")
+
+#See if we've got our cmake modules checked out. If not, advise to do so.
+IF(EXISTS "${CMAKE_SOURCE_DIR}/../compily_buildd/cmake")
+  SET(BUILDSYS_CMAKE_DIR "${CMAKE_SOURCE_DIR}/../compily_buildd/cmake")
+  MESSAGE(STATUS "Using outside compily_buildd directory ${BUILDSYS_CMAKE_DIR}")
+ELSEIF(EXISTS "${CMAKE_SOURCE_DIR}/compily_buildd/cmake")
+  SET(BUILDSYS_CMAKE_DIR "${CMAKE_SOURCE_DIR}/compily_buildd/cmake")
+  MESSAGE(STATUS "Using compily_buildd git submodule ${BUILDSYS_CMAKE_DIR}")
+ELSE(EXISTS "${CMAKE_SOURCE_DIR}/compily_buildd/cmake")
+  MESSAGE(FATAL_ERROR
+    "Cannot find compily_buildd directory for np labs project compilation functions.\n"
+    "Make sure you've either put the compily_buildd directory in the same root as your repository directory, or that you've used the compily_buildd submodule (git submodule update --init).\n"
+    "NP Labs build repository is available at git://github.com/qdot/compily_buildd.git"
+    )
+ENDIF(EXISTS "${CMAKE_SOURCE_DIR}/../compily_buildd/cmake")
+
+LIST(APPEND CMAKE_MODULE_PATH ${BUILDSYS_CMAKE_DIR})
+
+INCLUDE( ${BUILDSYS_CMAKE_DIR}/BuildSysCMakeLib.cmake )
 
 #setting link directory policy
 
@@ -9,112 +30,71 @@ IF(COMMAND cmake_policy)
   CMAKE_POLICY(SET CMP0003 NEW)
 ENDIF(COMMAND cmake_policy)
 
-#taken from http://www.cmake.org/pipermail/cmake/2006-February/008334.html
+######################################################################################
+# Project declaration and options
+######################################################################################
 
-MACRO(SET_COMPILE_FLAGS TARGET)
-  SET(FLAGS)
-  FOREACH(flag ${ARGN})
-    SET(FLAGS "${FLAGS} ${flag}")
-  ENDFOREACH(flag)
-  SET_TARGET_PROPERTIES(${TARGET} PROPERTIES COMPILE_FLAGS "${FLAGS}")
-ENDMACRO(SET_COMPILE_FLAGS)
-
-#Generalized library building function for all C++ libraries
-FUNCTION(BUILD_LIBS LIB_NAME LIB_TYPES SRCS LINK_LIBS CXX_DEFINES)
-  FOREACH(LIB_TYPE ${LIB_TYPES})
-    SET(CURRENT_LIB ${LIB_NAME}_${LIB_TYPE})
-    ADD_LIBRARY (${CURRENT_LIB} ${LIB_TYPE} ${SRCS})
-
-    SET_TARGET_PROPERTIES (${CURRENT_LIB} PROPERTIES OUTPUT_NAME ${LIB_NAME})
-    SET_TARGET_PROPERTIES (${CURRENT_LIB} PROPERTIES CLEAN_DIRECT_OUTPUT 1)
-    SET_TARGET_PROPERTIES (${CURRENT_LIB} PROPERTIES VERSION ${LIBRARY_VERSION})
-
-    #optional arguments
-    IF(LINK_LIBS)
-      FOREACH(LINK_LIB ${LINK_LIBS})
-		TARGET_LINK_LIBRARIES(${CURRENT_LIB} ${LINK_LIB})
-      ENDFOREACH(LINK_LIB)
-    ENDIF(LINK_LIBS)
-
-    #cpp defines
-    IF(CXX_DEFINES)
-      SET_COMPILE_FLAGS(${CURRENT_LIB} ${CXX_DEFINES})
-    ENDIF(CXX_DEFINES)
-
-	#installation for non-windows platforms
-    IF(NOT WIN32)
-      INSTALL(TARGETS ${CURRENT_LIB} LIBRARY DESTINATION ${LIBRARY_INSTALL_DIR} ARCHIVE DESTINATION ${LIBRARY_INSTALL_DIR})
-    ENDIF(NOT WIN32)
-
-    #rewrite of install_name_dir in apple binaries
-    IF(APPLE)
-      SET_TARGET_PROPERTIES(${CURRENT_LIB} PROPERTIES INSTALL_NAME_DIR ${LIBRARY_INSTALL_DIR})
-    ENDIF(APPLE)
-  ENDFOREACH(LIB_TYPE)
-ENDFUNCTION(BUILD_LIBS)
-
-FUNCTION(BUILD_EXES EXE_NAME SRCS LINK_LIBS LINK_FLAGS DEFINES SHOULD_INSTALL)
-  ADD_EXECUTABLE(${EXE_NAME} ${SRCS})
-  SET_TARGET_PROPERTIES (${EXE_NAME} PROPERTIES OUTPUT_NAME ${EXE_NAME}${LIBNIFALCON_POSTFIX})
-  IF(DEFINES)
-    SET_COMPILE_FLAGS(${EXE_NAME} ${DEFINES})
-  ENDIF(DEFINES)
-  IF(LINK_FLAGS)
-    SET_TARGET_PROPERTIES(${EXE_NAME} PROPERTIES LINK_FLAGS ${LINK_FLAGS})
-  ENDIF(LINK_FLAGS)
-
-  TARGET_LINK_LIBRARIES(${EXE_NAME} ${LINK_LIBS})
-  IF(NOT WIN32 AND SHOULD_INSTALL)
-    INSTALL(TARGETS ${EXE_NAME} RUNTIME DESTINATION ${RUNTIME_INSTALL_DIR})
-  ENDIF(NOT WIN32 AND SHOULD_INSTALL)
-ENDFUNCTION(BUILD_EXES)
-
-SET(BUILD_TYPES STATIC SHARED)
+#Project declaration
 
 PROJECT(LIBVIRTUALHOLE)
-SET(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
-SET(LIBRARY_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/lib)
-SET(LIBRARY_VERSION 1.0)
-SET(PROJECT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
-SET(PROJECT_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
-FIND_PACKAGE(libftd2xx)
-FIND_PACKAGE(libftdi)
+INITIALIZE_BUILD()
 
-IF(UNIX)
-  IF(NOT PREFIX_DIR)
-    SET(PREFIX_DIR /usr/local)
-  ENDIF(NOT PREFIX_DIR)
-  IF(NOT INCLUDE_INSTALL_DIR)
-    SET(INCLUDE_INSTALL_DIR ${PREFIX_DIR}/include)
-  ENDIF(NOT INCLUDE_INSTALL_DIR)
-  IF(NOT LIBRARY_INSTALL_DIR)
-    SET(LIBRARY_INSTALL_DIR ${PREFIX_DIR}/lib)
-  ENDIF(NOT LIBRARY_INSTALL_DIR)
-  IF(NOT RUNTIME_INSTALL_DIR)
-    SET(RUNTIME_INSTALL_DIR ${PREFIX_DIR}/bin)
-  ENDIF(NOT RUNTIME_INSTALL_DIR)
-ENDIF(UNIX)
+#Common Options
 
-MESSAGE(STATUS "Install Directory Prefix: ${PREFIX_DIR}")
-MESSAGE(STATUS "Include Install Directory: ${INCLUDE_INSTALL_DIR}")
-MESSAGE(STATUS "Library Install Directory: ${LIBRARY_INSTALL_DIR}")
-MESSAGE(STATUS "Runtime Install Directory: ${RUNTIME_INSTALL_DIR}")
+OPTION_LIBRARY_BUILD_STATIC(ON)
+#We can't build shared on MSVC yet
+IF(NOT MSVC)
+  OPTION_LIBRARY_BUILD_SHARED(ON)
+ENDIF(NOT MSVC)
+OPTION_FAST_MATH(ON)
+OPTION_ARCH_OPTS(ON)
+OPTION_GPROF(OFF)
 
-IF(SET_BUILD_RPATH)
-  # use, i.e. don't skip the full RPATH for the build tree
-  SET(CMAKE_SKIP_BUILD_RPATH  FALSE)
-  
-  # when building, don't use the install RPATH already
-  # (but later on when installing)
-  SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE) 
-  
-  # the RPATH to be used when installing
-  SET(CMAKE_INSTALL_RPATH "${LIBRARY_INSTALL_DIR}")
-  
-  # add the automatically determined parts of the RPATH
-  # which point to directories outside the build tree to the install RPATH
-  SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-ENDIF(SET_BUILD_RPATH)
+#Project specific options
+OPTION(BUILD_EXAMPLES "Build libvirtualhole examples" ON)
+
+######################################################################################
+# Project specific package finding
+######################################################################################
+
+# IF(NOT WIN32)
+#   FIND_PACKAGE(libusb-1.0 REQUIRED)
+#   INCLUDE_DIRECTORIES(${LIBUSB_1_INCLUDE_DIRS})
+#   SET(LIBVIRTUALHOLE_DEP_LIBS ${LIBUSB_1_LIBRARIES})
+# ELSE()
+# ENDIF()
+IF(NOT WIN32)
+  FIND_PACKAGE(libftdi REQUIRED)
+  FIND_PACKAGE(libusb REQUIRED)
+  INCLUDE_DIRECTORIES(${LIBUSB_INCLUDE_DIRS} ${LIBFTDI_INCLUDE_DIRS})
+  SET(LIBVIRTUALHOLE_DEP_LIBS ${LIBFTDI_LIBRARIES} ${LIBUSB_LIBRARIES})
+ENDIF()
+
+######################################################################################
+# Project specific globals
+######################################################################################
+
+#library definitions
+
+SET(LIBVIRTUALHOLE_MAJOR_VERSION 1)
+SET(LIBVIRTUALHOLE_MINOR_VERSION 1)
+SET(LIBVIRTUALHOLE_BUILD_VERSION 0)
+
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include)
+
+SET(LIBVIRTUALHOLE_VERSION ${LIBVIRTUALHOLE_MAJOR_VERSION}.${LIBVIRTUALHOLE_MINOR_VERSION}.${LIBVIRTUALHOLE_BUILD_VERSION})
+
+#library name definitions
+
+CREATE_LIBRARY_LINK_NAME(virtualhole)
+
+INCLUDE_DIRECTORIES(${LIBVIRTUALHOLE_INCLUDE_DIR})
+LINK_DIRECTORIES(${LIBRARY_OUTPUT_PATH})
+
+#If we build libusb staticly on apple, we need the proper frameworks
+IF(BUILD_STATIC AND APPLE)
+  LIST(APPEND LIBVIRTUALHOLE_DEP_LIBS "-framework IOKit" "-framework CoreFoundation")
+ENDIF(BUILD_STATIC AND APPLE)
 
 ADD_SUBDIRECTORY(src)
-ADD_SUBDIRECTORY(examples/virtualhole_test)
+ADD_SUBDIRECTORY(examples)
